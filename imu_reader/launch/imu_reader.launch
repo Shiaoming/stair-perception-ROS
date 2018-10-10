@@ -1,0 +1,11 @@
+<launch>
+
+    <!-- params -->
+    <!--<param name="serial_port" value="/dev/ttyUSB0" />-->
+
+    <!--<node name="imu_reader" pkg="imu_reader" type="imu_reader" output="screen" />-->
+
+    <arg name="serial_port" value="/dev/ttyUSB0" />
+    <node name="imu_reader" pkg="imu_reader" type="imu_reader" args="${arg serial_port}" output="screen"/>
+
+</launch>

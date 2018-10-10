@@ -1,0 +1,38 @@
+<launch>
+
+    <arg name="base_name"         default="buxx"/>
+    <arg name="nodelet_manager"   default="$(arg base_name)"/>
+    <arg name="queue_size"        default="5"/>
+    <arg name="start_manager"     default="true"/>
+
+    <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)" args="manager"
+          if="$(arg start_manager)" output="screen"/>
+
+    <!-- sd point cloud (512 x 424) -->
+    <node pkg="nodelet" type="nodelet" name="$(arg base_name)_points_xyzrgb_sd"
+          args="load depth_image_proc/point_cloud_xyzrgb $(arg nodelet_manager)" >
+        <remap from="rgb/camera_info" to="$(arg base_name)/sd/camera_info"/>
+        <remap from="rgb/image_rect_color" to="$(arg base_name)/sd/image_color_rect"/>
+        <remap from="depth_registered/image_rect" to="$(arg base_name)/sd/image_depth_rect"/>
+        <remap from="depth_registered/points" to="$(arg base_name)/sd/points"/>
+        <param name="queue_size" type="int" value="$(arg queue_size)"/>
+    </node>
+
+    <!--cloud rotation-->
+    <node pkg="nodelet" type="nodelet" name="$(arg base_name)_cloud_rotation"
+          args="load cloud_rotation $(arg nodelet_manager)" >
+        <remap from="$(arg base_name)_cloud_rotation/cloud_in"                    to="$(arg base_name)/sd/points"/>
+        <remap from="$(arg base_name)_cloud_rotation/imu_data"                    to="$(arg base_name)/imu_reader/imu_data"/>
+        <param name="queue_size" type="int" value="$(arg queue_size)"/>
+    </node>
+
+    <!--plane segmentation node version-->
+    <node pkg="pcl_segmentation" type="pcl_seg_node" name="pcl_plane_seg" output="screen">
+        <param name="show_seg_viewer" type="bool" value="true" />
+        <remap from="/peac_cloud_rotation/cloud_xyzrgba"   to="$(arg base_name)_cloud_rotation/cloud_xyzrgba"/>
+    </node>
+
+    <!--参数配置-->
+    <node pkg="rqt_reconfigure" type="rqt_reconfigure" name="param_setting"/>
+
+</launch>

@@ -1,0 +1,11 @@
+<launch>
+
+  <arg name="robot_serial_port" value="/dev/ttyUSB0" />
+  <arg name="queue_size"        default="5"/>
+
+  <node name="my_serial_send_node" pkg="my_serial_send_node" type="serial_send_node" output="screen" respawn="true">
+    <param name="robot_serial_port"         type="str"    value="$(arg robot_serial_port)"/>
+    <param name="queue_size"        type="int"    value="$(arg queue_size)"/>
+  </node>
+
+</launch>

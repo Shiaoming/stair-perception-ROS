@@ -1,0 +1,12 @@
+<launch>
+
+    <!--plane segmentation node version-->
+    <node pkg="pcl_segmentation" type="pcl_seg_node" name="pcl_plane_seg" output="screen">
+        <param name="show_seg_viewer" type="bool" value="true" />
+        <remap from="/peac_cloud_rotation/cloud_xyzrgba"   to="peac_cloud_rotation/cloud_xyzrgba"/>
+    </node>
+
+    <!--参数配置-->
+    <node pkg="rqt_reconfigure" type="rqt_reconfigure" name="param_setting"/>
+
+</launch>

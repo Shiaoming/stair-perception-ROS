@@ -1,0 +1,7 @@
+<library path="lib/libpcl_seg_nodelet">
+    <class name="pcl_seg" type="PCLSegNodelet" base_class_type="nodelet::Nodelet">
+        <description>
+            plane segmentation.
+        </description>
+    </class>
+</library>

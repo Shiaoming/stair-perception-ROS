@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classserial_1_1_i_o_exception.html" title="serial::IOException" alt="" coords="170,5,303,32"/>
+<area shape="rect" id="node3" href="$classserial_1_1_port_not_opened_exception.html" title="serial::PortNotOpenedException" alt="" coords="132,56,341,83"/>
+<area shape="rect" id="node4" href="$classserial_1_1_serial_exception.html" title="serial::SerialException" alt="" coords="161,107,313,133"/>
+</map>

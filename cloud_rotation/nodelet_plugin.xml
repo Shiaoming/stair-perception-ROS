@@ -1,0 +1,7 @@
+<library path="lib/libcloud_rotation_nodelet">
+    <class name="cloud_rotation" type="CloudRotationNodelet" base_class_type="nodelet::Nodelet">
+        <description>
+            Recieve point cloud and imu data then rotation point cloud based on the imu data.
+        </description>
+    </class>
+</library>

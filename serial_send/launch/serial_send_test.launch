@@ -1,0 +1,29 @@
+<launch>
+
+    <arg name="robot_serial_port" value="/dev/ttyUSB0" />
+    <arg name="queue_size"        default="5"/>
+
+    <arg name="loop_rate"        default="1"/>
+    <arg name="has_stair"        default="true"/>
+    <arg name="height"          default="103.0"/>
+    <arg name="depth"           default="204.0"/>
+    <arg name="v_height"        default="1505.0"/>
+    <arg name="v_depth"         default="1206.0"/>
+
+    <node name="stair_info_pub_test" pkg="serial_send" type="stair_info_pub" output="screen" respawn="true">
+        <param name="queue_size"        type="int"      value="$(arg queue_size)"/>
+        <param name="loop_rate"         type="int"      value="$(arg loop_rate)"/>
+        <param name="has_stair"         type="bool"     value="$(arg has_stair)"/>
+        <param name="height"            type="double"    value="$(arg height)"/>
+        <param name="depth"             type="double"    value="$(arg depth)"/>
+        <param name="v_height"          type="double"    value="$(arg v_height)"/>
+        <param name="v_depth"           type="double"    value="$(arg v_depth)"/>
+    </node>
+
+    <node name="serial_send" pkg="serial_send" type="serial_send_node" output="screen" respawn="true">
+        <param name="robot_serial_port"         type="str"    value="$(arg robot_serial_port)"/>
+        <param name="queue_size"        type="int"    value="$(arg queue_size)"/>
+        <remap from="serial_send/stair_info" to="stair_info_pub_test/stair_info"/>
+    </node>
+
+</launch>
